@@ -70,6 +70,7 @@ updateBooks() {
         )}/>
         <Route exact path="/search" render={() => (
             <SearchBooks
+            addedBooks={this.state.books}
             updateShelf={this.changeShelf}
             updateBooks={this.updateBooks}/>
         )}/>

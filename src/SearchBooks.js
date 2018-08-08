@@ -8,8 +8,10 @@ import PropTypes from 'prop-types'
 class SearchBooks extends Component {
 
   static propTypes = {
+    addedBooks: PropTypes.array.isRequired,
     updateShelf: PropTypes.func.isRequired,
-    updateBooks: PropTypes.func.isRequiredred
+    updateBooks: PropTypes.func.isRequired,
+
   }
 
 
@@ -42,7 +44,17 @@ if(query){
 
 
 render () {
-
+console.log(this.state.searchedBooks)
+let booksToDisplay = this.state.searchedBooks;
+booksToDisplay=booksToDisplay.map((book)=>{
+  for(let i = 0;this.props.addedBooks.length>i;i++){
+    if(this.props.addedBooks[i].id==book.id){
+    return this.props.addedBooks[i];
+    }
+    return book;
+  }
+})
+console.log(booksToDisplay)
   return(
     <div className="search-books">
       <div className="search-books-bar">
@@ -56,8 +68,8 @@ render () {
       <div className="search-books-results">
         <ol className="books-grid">
         {
-          this.state.searchedBooks.map((book)=> (
-            <div key={book.id}><Book
+          booksToDisplay.map((book)=> (
+            <div key={book.title}><Book
               book={book}
               updateShelf={this.props.updateShelf}
               updateBooks={this.props.updateBooks}
